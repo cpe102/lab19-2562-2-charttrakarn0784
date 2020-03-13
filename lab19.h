@@ -12,16 +12,16 @@ class Unit{
 		int hp;
 		int hpmax;
 		int atk;
-		int def;
-		bool guard_on;		
+		int def; 
+		bool guard_on; 		
 	public:			
 		void create(string);
 		void showStatus();
 		void newTurn();
 		int attack(Unit &);
-		int beAttacked(int);
+		int beAttacked(int); //? int from Atk who attack
 		int heal();	
-		void guard();
+		void guard(); //? (ATK-DEF)/3
 		bool isDead();	
 };
 
@@ -30,15 +30,15 @@ void Unit::create(string t){
 		type = "Hero";
 		cout << "Please input your name: ";
 		getline(cin,name);
-		hpmax = rand()%20+90;
-		atk = rand()%5+14;
-		def = rand()%3+9;
+		hpmax = rand()%20+90; //! 90 - 110
+		atk = rand()%5+14; //! 14 - 19
+		def = rand()%3+9; //! 9 - 11
 	}else if(t == "Monster"){
 		type = "Monster";
 		name = "Monster";
-		hpmax = rand()%20+200;
-		atk = rand()%5+25;
-		def = rand()%3+5;
+		hpmax = rand()%20+200; //! 200 - 220
+		atk = rand()%5+25; //! 25 - 30
+		def = rand()%3+5; //! 5 - 8
 	}
 	hp = hpmax;
 	guard_on = false;
@@ -63,14 +63,44 @@ void Unit::newTurn(){
 	guard_on = false;
 }
 
-//Write Function Member attack(), beAttacked(), heal(), guard() and isDead() here
-//
-//
-//
-//
-//
-//
-
+//* Write Function Member attack(), beAttacked(), heal(), guard() and isDead() here
+//TODO attack()
+int Unit::attack(Unit &target)
+{
+	return target.beAttacked(atk);
+}
+//TODO beAttack() calculate DMG = oppatk - def,decease HP by DMG if 
+//TODO if Guard_on dmg = dmg/3 decrease HP by DMG return DMG
+int Unit::beAttacked(int oppatk)
+{
+	int dmg = oppatk - def;
+	if(guard_on == true) dmg /= 3;
+	hp = hp - dmg;
+	return dmg;
+}
+//TODO heal() rand10-30 but not >hpmax if(>) change randNum; and return H 
+int Unit::heal()
+{
+	int heal_dmg = rand()%20+10;
+	hp += heal_dmg;
+	if(hp > hpmax){
+		int excess = hp - hpmax;
+		hp -= excess;
+		heal_dmg -= excess;
+	}
+	return heal_dmg;
+}
+//TODO guard() set guard_on to True
+void Unit::guard()
+{
+	guard_on = true;
+}
+//TODO isDead() check hp if hp <= 0 return true
+bool Unit::isDead()
+{
+	if(hp <= 0) return true;
+	else return false;
+}
 void drawScene(char p_action,int p,char m_action,int m){
 	cout << "                                                       \n";
 	if(p_action == 'A'){

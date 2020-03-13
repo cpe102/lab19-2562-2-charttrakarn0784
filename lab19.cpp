@@ -21,8 +21,8 @@ int main(){
 		if(player_action == 'E') break; 
 		
 		int temp = rand()%3;
-		if(temp <= 1) monster_action = 'A';
-		else if(temp == 2) monster_action = 'G';
+		if(temp <= 1) monster_action = 'A'; //! Attack chance 2/3
+		else if(temp == 2) monster_action = 'G'; //! Guard chance 1/3
 		
 		if(player_action == 'G') hero.guard();
 		if(monster_action == 'G') mons.guard();
