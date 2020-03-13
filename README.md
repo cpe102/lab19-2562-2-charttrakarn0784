@@ -1,2 +1,2 @@
-# NAME:
-# STUDENT ID:
+# NAME:นายชาติตระการ ชูศิริ
+# STUDENT ID:620610784
